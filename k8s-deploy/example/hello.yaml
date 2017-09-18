@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-nginx
+  labels:
+     app: nginx    
+spec:
+  containers:
+    - name: hello-ngix
+      image: 172.16.130.151:4000/nginx
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 80
+  restartPolicy: Always
+  nodeSelector:
+    node: node2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-nginx-service
+spec:
+  type: NodePort
+  sessionAffinity: ClientIP
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      nodePort: 30080

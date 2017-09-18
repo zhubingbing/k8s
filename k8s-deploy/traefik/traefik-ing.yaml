@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: traefik-ingress
+spec:
+  rules:
+  - host: traefik.nginx-test-path
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx-test-path
+          servicePort: 80
+  - host: traefik.locust.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: locust-master
+          servicePort: 8089

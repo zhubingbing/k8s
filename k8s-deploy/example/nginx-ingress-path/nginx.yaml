@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-test-path
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: nginx-test-path
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-test-path
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nginx-test-path
+    spec:
+      containers:
+      - name: nginx-test-path
+        image: 172.16.130.151:4000/nginx:latest
+        ports:
+        - containerPort: 80
